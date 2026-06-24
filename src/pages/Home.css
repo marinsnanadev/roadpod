@@ -1,0 +1,98 @@
+.App-main {
+  padding: 80px 24px 40px;
+  color: white;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.all-episodes-carousel {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  overflow: hidden;
+  border-radius: 24px;
+  background: #111;
+}
+
+.carousel-slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transform: translateX(100%);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.carousel-slide.active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.carousel-title {
+  position: absolute;
+  left: 24px;
+  bottom: 24px;
+  color: white;
+  font-size: 1.35rem;
+  font-weight: 700;
+  text-shadow: 0 3px 18px rgba(0, 0, 0, 0.55);
+}
+
+.home-content {
+  position: relative;
+  background: linear-gradient(to bottom, #971414 0%, #971414 60%, rgba(204, 0, 0, 0) 100%);
+  min-height: 180px;
+  margin-top: 32px;
+  border-radius: 12px;
+  overflow: hidden;
+  padding: 24px 24px 24px 154px;
+}
+
+.home-content-logo {
+  position: absolute;
+  left: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 110px;
+  height: 110px;
+  z-index: 2;
+  border-radius: 16px;
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.75);
+  overflow: hidden;
+}
+
+.home-content-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.home-content h2,
+.home-content p {
+  position: relative;
+  z-index: 1;
+  color: white;
+  margin: 0;
+  font-size: 20px;
+}
+
+.home-content h2 {
+  margin-bottom: 12px;
+}
+
+.home-content p {
+  line-height: 1.6;
+  max-width: 760px;
+}
+
+.home-footer {
+  margin-top: 32px;
+  align-items: center;
+  font-size: 0.85rem;
+}
+
+.home-footer a {
+    text-decoration: none;
+    color: white;
+}

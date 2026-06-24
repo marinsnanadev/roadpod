@@ -109,7 +109,7 @@
 }
 
 .dropdown-item {
-  padding: 9px 14px;
+  padding: 0;
   font-size: 0.85rem;
   color: #ffffff;
   border-radius: 8px;
@@ -118,8 +118,19 @@
   transition: background-color 0.15s ease;
 }
 
-.dropdown-item:hover {
-  background-color: #cc0000;
+.dropdown-item-button {
+  width: 100%;
+  padding: 9px 14px;
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.dropdown-item-button:hover {
+  background-color: rgba(204, 0, 0, 0.15);
 }
 
 /* ── Main content ── */

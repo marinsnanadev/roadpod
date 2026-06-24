@@ -4,7 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText as GSAPSplitText } from 'gsap/SplitText';
 import { useGSAP } from '@gsap/react';
 
-gsap.registerPlugin(ScrollTrigger, GSAPSplitText, useGSAP);
+gsap.registerPlugin(ScrollTrigger, GSAPSplitText);
 
 const SplitText = ({
   text,
@@ -32,13 +32,19 @@ const SplitText = ({
   }, [onLetterAnimationComplete]);
 
   useEffect(() => {
+    let isMounted = true;
+
     if (document.fonts.status === 'loaded') {
       setFontsLoaded(true);
     } else {
       document.fonts.ready.then(() => {
-        setFontsLoaded(true);
+        if (isMounted) setFontsLoaded(true);
       });
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   useGSAP(
