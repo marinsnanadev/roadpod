@@ -1,0 +1,234 @@
+.faq-page {
+  position: relative;
+  padding: 100px 24px 60px;
+  color: var(--color-text);
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: left;
+  overflow: hidden;
+}
+
+/* ── Glow de fundo ── */
+.faq-glow {
+  position: fixed;
+  width: 560px;
+  height: 560px;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.28;
+  pointer-events: none;
+  z-index: -2;
+}
+
+.faq-glow--accent {
+  top: -180px;
+  right: -160px;
+  background: var(--color-accent);
+}
+
+.faq-glow--accent2 {
+  bottom: -220px;
+  left: -200px;
+  background: var(--color-accent-2);
+}
+
+.faq-grid-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse at top, black 0%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at top, black 0%, transparent 70%);
+}
+
+/* ── Hero ── */
+.faq-hero {
+  margin-bottom: 44px;
+}
+
+.faq-eyebrow {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-accent-2);
+  margin-bottom: 10px;
+}
+
+.faq-hero h1 {
+  font-family: var(--font-heading);
+  font-size: 2.4rem;
+  margin: 0 0 14px;
+}
+
+.faq-hero p {
+  color: var(--color-text-muted);
+  line-height: 1.7;
+  font-size: 0.95rem;
+  max-width: 560px;
+}
+
+/* ── Categorias ── */
+.faq-categories {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.faq-category {
+  --cat-color: var(--color-accent);
+}
+
+.faq-category.accent-accent2 {
+  --cat-color: var(--color-accent-2);
+}
+
+.faq-category.accent-accent3 {
+  --cat-color: #2dd4bf;
+}
+
+.faq-category-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  margin: 0 0 16px;
+}
+
+.faq-category-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--cat-color);
+  box-shadow: 0 0 10px var(--cat-color);
+  flex-shrink: 0;
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ── Item do accordion ── */
+.faq-item {
+  background: var(--color-surface);
+  border: 1px solid var(--color-surface-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.faq-item.open {
+  border-color: var(--cat-color);
+  box-shadow: 0 0 0 1px var(--cat-color) inset;
+}
+
+.faq-question {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: none;
+  border: none;
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-align: left;
+  padding: 16px 18px;
+  cursor: pointer;
+}
+
+.faq-icon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: color-mix(in srgb, var(--cat-color) 20%, transparent);
+  color: var(--cat-color);
+  font-size: 1rem;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.faq-item.open .faq-icon {
+  transform: rotate(45deg);
+  background: var(--cat-color);
+  color: #0a0a0f;
+}
+
+/* ── Animação do conteúdo via grid-template-rows ── */
+.faq-answer-wrapper {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s ease;
+}
+
+.faq-item.open .faq-answer-wrapper {
+  grid-template-rows: 1fr;
+}
+
+.faq-answer-wrapper > .faq-answer {
+  overflow: hidden;
+  min-height: 0;
+  margin: 0;
+  padding: 0 18px;
+  color: var(--color-text-muted);
+  font-size: 0.88rem;
+  line-height: 1.65;
+}
+
+.faq-item.open .faq-answer-wrapper > .faq-answer {
+  padding: 0 18px 18px;
+}
+
+/* ── CTA final ── */
+.faq-cta {
+  margin-top: 56px;
+  padding: 28px;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid var(--color-surface-border);
+  text-align: center;
+  box-shadow: var(--shadow-glow-accent);
+}
+
+.faq-cta h3 {
+  font-family: var(--font-heading);
+  margin: 0 0 8px;
+  font-size: 1.2rem;
+}
+
+.faq-cta p {
+  margin: 0 0 18px;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.faq-cta-button {
+  display: inline-block;
+  background: var(--color-accent);
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.9rem;
+  border-radius: 999px;
+  padding: 10px 22px;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.faq-cta-button:hover {
+  background: var(--color-accent-strong);
+  box-shadow: 0 0 18px rgba(255, 45, 85, 0.4);
+}

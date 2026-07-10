@@ -7,8 +7,6 @@ import FAQ from './pages/FAQ';
 import Home from './pages/Home';
 import AllEpisodes from './pages/AllEpisodes';
 
-
-
 function NotFound() {
   return (
     <main className="App-main">
@@ -17,8 +15,6 @@ function NotFound() {
     </main>
   );
 }
-
-
 
 function App() {
   return (

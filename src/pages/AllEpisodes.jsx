@@ -1,5 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { gsap } from 'gsap';
+import { useGSAP } from '@gsap/react';
 import './AllEpisodes.css';
 
 const episodeList = [
@@ -95,21 +97,56 @@ const routeFilterMap = {
 
 const filters = ['Todos os episódios', 'Análise do mangá', 'Análise do anime', 'Episódios especiais'];
 
+const typeStyleMap = {
+  'Análise do mangá': 'manga',
+  'Análise do anime': 'anime',
+  'Episódios especiais': 'especiais',
+  'Fillers': 'fillers',
+};
+
+function getEpisodeNumber(title) {
+  const match = title.match(/Episodio\s+(\d+)/i);
+  return match ? match[1] : '';
+}
+
+function getEpisodeSubtitle(title) {
+  return title.replace(/^Episodio\s+\d+\s*-\s*/i, '');
+}
+
 function AllEpisodes() {
   const { episodeType } = useParams();
   const defaultFilter = routeFilterMap[episodeType] || 'Todos os episódios';
   const [selectedType, setSelectedType] = useState(() => defaultFilter);
+  const [expandedEpisode, setExpandedEpisode] = useState(null);
+  const gridRef = useRef(null);
 
   useEffect(() => {
     setSelectedType(defaultFilter);
+    setExpandedEpisode(null);
   }, [defaultFilter]);
+
+  const visibleEpisodes = selectedType === 'Todos os episódios'
+    ? episodeList
+    : episodeList.filter((episode) => episode.type === selectedType);
+
+  useGSAP(() => {
+    gsap.fromTo(
+      '.episode-card',
+      { autoAlpha: 0, y: 26 },
+      { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power2.out', stagger: 0.05 }
+    );
+  }, { dependencies: [selectedType], scope: gridRef });
+
+  const toggleEpisode = (title) => {
+    setExpandedEpisode((current) => (current === title ? null : title));
+  };
 
   return (
     <main className="all-episodes-page">
       <section className="all-episodes-content">
         <div className="episode-block">
           <h2>Último episódio</h2>
-          <div className="spotify-embed-wrapper">
+          <div className="spotify-embed-wrapper featured">
             <iframe
               data-testid="embed-iframe"
               style={{ borderRadius: 12 }}
@@ -126,7 +163,11 @@ function AllEpisodes() {
         </div>
 
         <div className="episode-links-placeholder">
-          <h3>{selectedType === 'Todos os episódios' ? 'Todos os episódios' : selectedType}</h3>
+          <div className="episode-list-header">
+            <h3>{selectedType}</h3>
+            <span className="episode-count">{visibleEpisodes.length} episódio{visibleEpisodes.length !== 1 ? 's' : ''}</span>
+          </div>
+
           <div className="episode-filter-buttons">
             {filters.map((filter) => (
               <button
@@ -139,23 +180,49 @@ function AllEpisodes() {
               </button>
             ))}
           </div>
-          <div className="episode-list">
-            {(selectedType === 'Todos os episódios' ? episodeList : episodeList.filter((episode) => episode.type === selectedType)).map((episode) => (
-                <div key={episode.title} className="spotify-embed-wrapper">
-                  <iframe
-                    data-testid="embed-iframe"
-                    style={{ borderRadius: 12 }}
-                    src={episode.src}
-                    width="100%"
-                    height="152"
-                    frameBorder="0"
-                    allowFullScreen
-                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                    loading="lazy"
-                    title={episode.title}
-                  />
+
+          <div className="episode-grid" ref={gridRef}>
+            {visibleEpisodes.map((episode) => {
+              const isExpanded = expandedEpisode === episode.title;
+              const typeClass = typeStyleMap[episode.type] || 'default';
+
+              return (
+                <div key={episode.title} className={`episode-card type-${typeClass} ${isExpanded ? 'expanded' : ''}`}>
+                  <button
+                    type="button"
+                    className="episode-card-thumb"
+                    onClick={() => toggleEpisode(episode.title)}
+                    aria-expanded={isExpanded}
+                    aria-label={`${isExpanded ? 'Fechar' : 'Abrir'} player de ${episode.title}`}
+                  >
+                    <span className="episode-card-number">#{getEpisodeNumber(episode.title)}</span>
+                    <span className="episode-card-play">{isExpanded ? '❚❚' : '▶'}</span>
+                  </button>
+
+                  <div className="episode-card-info">
+                    <span className={`episode-badge type-${typeClass}`}>{episode.type}</span>
+                    <p className="episode-card-title">{getEpisodeSubtitle(episode.title)}</p>
+                  </div>
+
+                  {isExpanded && (
+                    <div className="spotify-embed-wrapper episode-card-player">
+                      <iframe
+                        data-testid="embed-iframe"
+                        style={{ borderRadius: 12 }}
+                        src={episode.src}
+                        width="100%"
+                        height="152"
+                        frameBorder="0"
+                        allowFullScreen
+                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                        loading="lazy"
+                        title={episode.title}
+                      />
+                    </div>
+                  )}
                 </div>
-              ))}
+              );
+            })}
           </div>
         </div>
       </section>

@@ -1,9 +1,10 @@
 .App {
   text-align: center;
-  background-color: #000000;
+  background-color: var(--color-bg);
   min-height: 100vh;
-  color: white;
+  color: var(--color-text);
   font-size: calc(10px + 2vmin);
+  font-family: var(--font-body);
 }
 
 /* ── Navbar ── */
@@ -17,8 +18,10 @@
   align-items: center;
   justify-content: space-between;
   padding: 12px 24px;
-  background-color: #000000;
-  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.05);
+  background-color: rgba(7, 7, 12, 0.75);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--color-surface-border);
 }
 
 .navbar-brand {
@@ -38,7 +41,8 @@
 }
 
 .navbar-title {
-  color: white;
+  color: var(--color-text);
+  font-family: var(--font-heading);
   font-size: 1.1rem;
   font-weight: 600;
   letter-spacing: 0.02em;
@@ -61,7 +65,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  background-color: #cc0000;
+  background-color: var(--color-accent);
   color: #ffffff;
   border: none;
   border-radius: 999px;
@@ -69,12 +73,13 @@
   font-size: 0.85rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.1s ease;
+  transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
   white-space: nowrap;
 }
 
 .nav-btn:hover {
-  background-color: #e60000;
+  background-color: var(--color-accent-strong);
+  box-shadow: 0 0 18px rgba(255, 45, 85, 0.45);
 }
 
 .nav-btn:active {
@@ -97,8 +102,10 @@
   position: absolute;
   top: calc(100% + 8px);
   right: 0;
-  background-color: #1a1a1a;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: var(--color-bg-soft);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--color-surface-border);
   border-radius: 12px;
   list-style: none;
   margin: 0;
@@ -106,12 +113,25 @@
   min-width: 160px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
   z-index: 999;
+  animation: dropdownIn 0.16s ease;
+  transform-origin: top right;
+}
+
+@keyframes dropdownIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .dropdown-item {
   padding: 0;
   font-size: 0.85rem;
-  color: #ffffff;
+  color: var(--color-text);
   border-radius: 8px;
   cursor: pointer;
   text-align: left;
@@ -130,7 +150,7 @@
 }
 
 .dropdown-item-button:hover {
-  background-color: rgba(204, 0, 0, 0.15);
+  background-color: var(--color-accent-soft);
 }
 
 /* ── Main content ── */
