@@ -1,51 +1,48 @@
-import { useState, useRef, useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function NavDropdown({ label, options }) {
-  const [open, setOpen] = useState(false);
+function NavDropdown({ label, options, isOpen, onOpen, onScheduleClose, onCloseImmediate }) {
   const wrapperRef = useRef(null);
-  const timeoutRef = useRef(null);
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (!isOpen) return undefined;
+
     function handleClickOutside(e) {
       if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
-        setOpen(false);
+        onCloseImmediate();
       }
     }
 
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
-
-  useEffect(() => {
-    return () => {
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    };
-  }, []);
+  }, [isOpen, onCloseImmediate]);
 
   const handleMouseEnter = () => {
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    setOpen(true);
+    onOpen();
   };
 
   const handleMouseLeave = () => {
-    timeoutRef.current = setTimeout(() => setOpen(false), 200);
+    onScheduleClose();
   };
 
   const handleButtonClick = (e) => {
     e.stopPropagation();
-    setOpen((prev) => !prev);
+    if (isOpen) {
+      onCloseImmediate();
+    } else {
+      onOpen();
+    }
   };
 
   const handleKeyDown = (e) => {
     if (e.key === 'Escape') {
-      setOpen(false);
+      onCloseImmediate();
     }
   };
 
   const handleItemClick = (item) => {
-    setOpen(false);
+    onCloseImmediate();
     const { route } = item;
     if (!route) return;
 
@@ -70,13 +67,13 @@ function NavDropdown({ label, options }) {
         className="nav-btn"
         onClick={handleButtonClick}
         aria-haspopup="menu"
-        aria-expanded={open}
+        aria-expanded={isOpen}
       >
         {label}
-        <span className={`arrow ${open ? 'hidden' : ''}`}>▾</span>
+        <span className={`arrow ${isOpen ? 'hidden' : ''}`}>▾</span>
       </button>
 
-      {open && (
+      {isOpen && (
         <ul
           className="dropdown-menu"
           role="menu"

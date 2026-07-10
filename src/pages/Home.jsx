@@ -23,7 +23,11 @@ function Home() {
   }, []);
 
   return (
-    <main className="App-main">
+    <main className="App-main home-page">
+      <div className="home-glow home-glow--accent" aria-hidden="true" />
+      <div className="home-glow home-glow--accent2" aria-hidden="true" />
+      <div className="home-grid-overlay" aria-hidden="true" />
+
       <div className="all-episodes-carousel">
         {slides.map((slide, index) => (
           <div
@@ -34,16 +38,27 @@ function Home() {
             <span className="carousel-title">{slide.title}</span>
           </div>
         ))}
+        <div className="carousel-dots">
+          {slides.map((slide, index) => (
+            <span
+              key={slide.id}
+              className={`carousel-dot ${index === activeIndex ? 'active' : ''}`}
+            />
+          ))}
+        </div>
       </div>
 
       <section className="home-content">
         <div className="home-content-logo">
           <img src={roadSquare} alt="Road Square" />
         </div>
-        <h2>Road Podglifos</h2>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vehicula turpis nec urna facilisis, at dignissim lacus tincidunt. Praesent euismod ligula vel felis sodales, non tincidunt nisl faucibus.
-        </p>
+        <div className="home-content-text">
+          <span className="home-content-eyebrow">Podcast • Mangá & Anime</span>
+          <h2>Road Podglifos</h2>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vehicula turpis nec urna facilisis, at dignissim lacus tincidunt. Praesent euismod ligula vel felis sodales, non tincidunt nisl faucibus.
+          </p>
+        </div>
       </section>
 
       <footer className="home-footer">

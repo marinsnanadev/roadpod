@@ -1,3 +1,4 @@
+import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../logo.svg';
 import SplitText from '../SplitText';
@@ -5,6 +6,33 @@ import NavDropdown from './NavDropdown';
 import { menuItems } from '../data/menuItems';
 
 function Navbar() {
+  const [activeMenu, setActiveMenu] = useState(null);
+  const closeTimeoutRef = useRef(null);
+
+  const clearCloseTimeout = () => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+      closeTimeoutRef.current = null;
+    }
+  };
+
+  const openMenu = (label) => {
+    clearCloseTimeout();
+    setActiveMenu(label);
+  };
+
+  const scheduleClose = () => {
+    clearCloseTimeout();
+    closeTimeoutRef.current = setTimeout(() => {
+      setActiveMenu(null);
+    }, 150);
+  };
+
+  const closeMenuImmediately = () => {
+    clearCloseTimeout();
+    setActiveMenu(null);
+  };
+
   return (
     <nav className="navbar">
       <Link to="/" className="navbar-brand navbar-brand-link">
@@ -25,7 +53,15 @@ function Navbar() {
       </Link>
       <div className="navbar-buttons">
         {menuItems.map(({ label, options }) => (
-          <NavDropdown key={label} label={label} options={options} />
+          <NavDropdown
+            key={label}
+            label={label}
+            options={options}
+            isOpen={activeMenu === label}
+            onOpen={() => openMenu(label)}
+            onScheduleClose={scheduleClose}
+            onCloseImmediate={closeMenuImmediately}
+          />
         ))}
       </div>
     </nav>

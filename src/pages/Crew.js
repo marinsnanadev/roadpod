@@ -1,3 +1,7 @@
+import { useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
 import './Crew.css';
 import rayPic from './assets/ray.png';
 import belPic from './assets/bel.png';
@@ -5,6 +9,8 @@ import felipePic from './assets/felipe.png';
 import kaikyPic from './assets/kaiky.png';
 import nanaPic from './assets/nana.png';
 import instaIcon from './assets/insta-icon.png'
+
+gsap.registerPlugin(ScrollTrigger);
 
 const crewMembers = [
   {
@@ -31,7 +37,13 @@ const crewMembers = [
     photo: kaikyPic,
     bio: 'Nam libero tempore cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus itaque earum.',
   },
-    {
+  {
+    name: 'Nath',
+    role: 'Espadachim',
+    photo: null,
+    bio: 'Temporibus autem quibusdam et aut officiis debitis rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae itaque earum hic tenetur a sapiente delectus reiciendis.',
+  },
+  {
     name: 'Nana',
     role: 'Social Media/Developer',
     photo: nanaPic,
@@ -60,7 +72,7 @@ function CrewCard({ member, index }) {
   );
 
   return (
-    <div className="crew-card">
+    <div className="crew-card" data-index={index}>
       {isLeft ? photo : info}
       {isLeft ? info : photo}
     </div>
@@ -68,8 +80,35 @@ function CrewCard({ member, index }) {
 }
 
 function Crew() {
+  const containerRef = useRef(null);
+
+  useGSAP(() => {
+    const cards = gsap.utils.toArray('.crew-card');
+
+    cards.forEach((card, i) => {
+      const isLeft = i % 2 === 0;
+
+      gsap.fromTo(
+        card,
+        { autoAlpha: 0, x: isLeft ? -70 : 70, y: 24 },
+        {
+          autoAlpha: 1,
+          x: 0,
+          y: 0,
+          duration: 0.9,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: card,
+            start: 'top 88%',
+            toggleActions: 'play none none reverse',
+          },
+        }
+      );
+    });
+  }, { scope: containerRef });
+
   return (
-    <main className="crew-page">
+    <main className="crew-page" ref={containerRef}>
       <h1 className="crew-heading">Crew</h1>
       <p className="credits">Artes por Kaiky Haru <a href="https://www.instagram.com/kaikyharu/" target="_blank" rel="noopener noreferrer" className="crew-instagram-link">
         <img src={instaIcon} alt="Instagram" />

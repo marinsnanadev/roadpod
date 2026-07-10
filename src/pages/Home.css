@@ -1,17 +1,63 @@
+.home-page {
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── Glow decorativo de fundo ── */
+.home-glow {
+  position: fixed;
+  width: 640px;
+  height: 640px;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.35;
+  pointer-events: none;
+  z-index: -2;
+}
+
+.home-glow--accent {
+  top: -180px;
+  right: -160px;
+  background: var(--color-accent);
+}
+
+.home-glow--accent2 {
+  bottom: -220px;
+  left: -200px;
+  background: var(--color-accent-2);
+}
+
+/* ── Grid decorativo estilo HUD ── */
+.home-grid-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse at top, black 0%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at top, black 0%, transparent 70%);
+}
+
 .App-main {
   padding: 80px 24px 40px;
-  color: white;
+  color: var(--color-text);
   max-width: 1100px;
   margin: 0 auto;
 }
 
+/* ── Carrossel ── */
 .all-episodes-carousel {
   position: relative;
   width: 100%;
-  height: 280px;
+  height: 320px;
   overflow: hidden;
-  border-radius: 24px;
-  background: #111;
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-soft);
+  border: 1px solid var(--color-surface-border);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
 }
 
 .carousel-slide {
@@ -20,46 +66,83 @@
   background-size: cover;
   background-position: center;
   opacity: 0;
-  transform: translateX(100%);
-  transition: opacity 0.5s ease, transform 0.5s ease;
+  transform: translateX(100%) scale(1.02);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.carousel-slide::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(7, 7, 12, 0.9) 0%, rgba(7, 7, 12, 0.15) 55%, transparent 100%);
 }
 
 .carousel-slide.active {
   opacity: 1;
-  transform: translateX(0);
+  transform: translateX(0) scale(1);
 }
 
 .carousel-title {
   position: absolute;
-  left: 24px;
-  bottom: 24px;
-  color: white;
-  font-size: 1.35rem;
+  left: 28px;
+  bottom: 28px;
+  z-index: 1;
+  color: var(--color-text);
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
   font-weight: 700;
   text-shadow: 0 3px 18px rgba(0, 0, 0, 0.55);
 }
 
+.carousel-dots {
+  position: absolute;
+  right: 24px;
+  bottom: 24px;
+  z-index: 2;
+  display: flex;
+  gap: 8px;
+}
+
+.carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.carousel-dot.active {
+  background: var(--color-accent);
+  transform: scale(1.3);
+}
+
+/* ── Card de apresentação (glassmorphism) ── */
 .home-content {
   position: relative;
-  background: linear-gradient(to bottom, #971414 0%, #971414 60%, rgba(204, 0, 0, 0) 100%);
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  background: var(--color-surface);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid var(--color-surface-border);
   min-height: 180px;
   margin-top: 32px;
-  border-radius: 12px;
+  border-radius: var(--radius-lg);
   overflow: hidden;
-  padding: 24px 24px 24px 154px;
+  padding: 28px 32px;
+  box-shadow: var(--shadow-glow-accent);
+  text-align: left;
 }
 
 .home-content-logo {
-  position: absolute;
-  left: 24px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 110px;
-  height: 110px;
-  z-index: 2;
-  border-radius: 16px;
-  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.75);
+  flex-shrink: 0;
+  width: 100px;
+  height: 100px;
+  border-radius: var(--radius-md);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6);
   overflow: hidden;
+  border: 1px solid var(--color-surface-border);
 }
 
 .home-content-logo img {
@@ -68,31 +151,58 @@
   object-fit: cover;
 }
 
+.home-content-text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.home-content-eyebrow {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-accent-strong);
+}
+
 .home-content h2,
 .home-content p {
-  position: relative;
-  z-index: 1;
-  color: white;
+  color: var(--color-text);
   margin: 0;
   font-size: 20px;
 }
 
 .home-content h2 {
-  margin-bottom: 12px;
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
 }
 
 .home-content p {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
   line-height: 1.6;
-  max-width: 760px;
+  max-width: 640px;
 }
 
 .home-footer {
   margin-top: 32px;
   align-items: center;
   font-size: 0.85rem;
+  color: var(--color-text-muted);
 }
 
 .home-footer a {
     text-decoration: none;
-    color: white;
+    color: var(--color-accent-strong);
+}
+
+@media (max-width: 640px) {
+  .home-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .home-content-text {
+    align-items: center;
+  }
 }
