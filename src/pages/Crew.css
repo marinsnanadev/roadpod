@@ -1,153 +1,196 @@
 .crew-page {
-  padding-top: 100px;
-  padding-bottom: 80px;
-  min-height: 100vh;
-  background-color: var(--color-bg);
+    position: relative;
+    min-height: 100vh;
+    padding: 112px 0 84px;
+    overflow: hidden;
+    background: radial-gradient(circle at 88% 4%, rgba(109, 91, 255, .14), transparent 28rem);
 }
 
 .crew-heading {
-  text-align: center;
-  font-family: var(--font-heading);
-  font-size: 2.2rem;
-  font-weight: 700;
-  color: var(--color-text);
-  margin-bottom: 40px;
-  letter-spacing: 0.04em;
+    width: min(100% - 40px, 980px);
+    margin: 0 auto 8px;
+    font: 700 clamp(3rem, 7vw, 5.6rem)/.86 var(--font-heading);
+    letter-spacing: -.075em;
+    text-align: left;
 }
 
 .credits {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  text-align: center;
-  font-size: 0.9rem;
-  color: var(--color-text-muted);
-  margin-bottom: 32px;
-  margin-top: -32px;
+    display: flex;
+    align-items: center;
+    width: min(100% - 40px, 980px);
+    margin: 0 auto 45px;
+    color: var(--color-text-muted);
+    font-size: .78rem;
+    text-align: left;
 }
 
 .crew-instagram-link {
-  display: flex;
-  align-items: center;
-  margin-left: 4px;
-  margin-top: 3px;
+    display: inline-flex;
+    margin-left: 6px;
 }
 
 .crew-instagram-link img {
-  width: 16px;
-  height: 16px;
+    width: 16px;
+    height: 16px;
+    opacity: .8;
+}
+
+.crew-instagram-link:hover img {
+    opacity: 1;
+    filter: drop-shadow(0 0 5px var(--color-accent));
 }
 
 .crew-list {
-  display: flex;
-  flex-direction: column;
-  gap: 72px;
-  width: 100%;
-  padding: 0 60px;
-  box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: min(100% - 40px, 980px);
+    margin: 0 auto;
 }
 
-/* ── Card ocupa 100% da largura ── */
 .crew-card {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: 100%;
-  min-height: 200px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: clamp(28px, 7vw, 74px);
+    min-height: 218px;
+    padding: 22px;
+    border-top: 1px solid rgba(245, 245, 247, .15);
+    border-bottom: 1px solid rgba(245, 245, 247, .1);
+    transition: background .25s ease, border-color .25s ease;
 }
 
-/* ── Foto circular ── */
+.crew-card::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 22px;
+    width: 50px;
+    height: 2px;
+    background: var(--color-accent);
+    opacity: .75;
+}
+
+.crew-card:hover {
+    background: rgba(255, 255, 255, .028);
+    border-color: rgba(255, 45, 85, .38);
+}
+
 .crew-photo {
-  width: 180px;
-  height: 180px;
-  min-width: 180px;
-  border-radius: 50%;
-  background-color: var(--color-bg-soft);
-  border: 3px solid var(--color-accent);
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+    position: relative;
+    flex: 0 0 180px;
+    width: 180px;
+    height: 180px;
+    overflow: hidden;
+    border: 1px solid rgba(245, 245, 247, .22);
+    background: var(--color-bg-soft);
+    box-shadow: 9px 9px 0 rgba(109, 91, 255, .2);
+    transition: transform .3s ease, box-shadow .3s ease;
 }
 
 .crew-card:hover .crew-photo {
-  transform: scale(1.06) rotate(-2deg);
-  box-shadow: var(--shadow-glow-accent);
-  border-color: var(--color-accent-strong);
+    transform: translate(-3px, -3px);
+    box-shadow: 13px 13px 0 rgba(255, 45, 85, .18);
 }
 
 .crew-photo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(.9) contrast(1.06);
 }
 
 .crew-photo-initials {
-  font-size: 3rem;
-  font-weight: 700;
-  color: var(--color-accent);
-  user-select: none;
+    color: var(--color-accent);
+    font: 700 3rem var(--font-heading);
 }
 
-/* ── Texto ── */
 .crew-info {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  padding: 0 60px;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 7px;
+    min-width: 0;
+    padding: 0;
 }
 
 .crew-info--left {
-  text-align: left;
+    text-align: left;
 }
 
 .crew-info--right {
-  text-align: right;
+    text-align: right;
 }
 
 .crew-name {
-  font-family: var(--font-heading);
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: var(--color-text);
-  margin: 0;
+    margin: 0;
+    font: 700 clamp(1.7rem, 3vw, 2.4rem)/.95 var(--font-heading);
+    letter-spacing: -.06em;
 }
 
 .crew-role {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--color-accent-strong);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
+    color: var(--color-accent-strong);
+    font-size: .68rem;
+    font-weight: 750;
+    letter-spacing: .14em;
+    text-transform: uppercase;
 }
 
 .crew-bio {
-  font-size: 14px;
-  color: var(--color-text-muted);
-  line-height: 1.65;
-  margin: 8px 0 0;
+    max-width: 570px;
+    margin: 8px 0 0;
+    color: var(--color-text-muted);
+    font-size: .9rem;
+    line-height: 1.7;
+}
+
+.crew-info--right .crew-bio {
+    margin-left: auto;
 }
 
 @media (max-width: 720px) {
-  .crew-list {
-    padding: 0 20px;
-  }
+    .crew-page {
+        padding-top: 94px;
+    }
 
-  .crew-card {
-    flex-direction: column !important;
-    text-align: center !important;
-    gap: 20px;
-  }
+    .crew-heading,
+    .credits,
+    .crew-list {
+        width: min(100% - 32px, 980px);
+    }
 
-  .crew-info {
-    padding: 0;
-  }
+    .credits {
+        margin-bottom: 30px;
+    }
 
-  .crew-info--left,
-  .crew-info--right {
-    text-align: center;
-  }
+    .crew-list {
+        gap: 22px;
+    }
+
+    .crew-card {
+        align-items: flex-start;
+        flex-direction: column !important;
+        gap: 20px;
+        padding: 19px 0;
+    }
+
+    .crew-card::before {
+        left: 0;
+    }
+
+    .crew-photo {
+        flex-basis: 132px;
+        width: 132px;
+        height: 132px;
+    }
+
+    .crew-info,
+    .crew-info--left,
+    .crew-info--right {
+        text-align: left;
+    }
+
+    .crew-info--right .crew-bio {
+        margin-left: 0;
+    }
 }
