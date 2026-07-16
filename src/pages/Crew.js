@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
+import useDocumentTitle from '../hooks/useDocumentTitle';
 import './Crew.css';
 import rayPic from './assets/ray.png';
 import belPic from './assets/bel.png';
@@ -80,6 +81,7 @@ function CrewCard({ member, index }) {
 }
 
 function Crew() {
+  useDocumentTitle('Road Podglifos | Crew');
   const containerRef = useRef(null);
 
   useGSAP(() => {

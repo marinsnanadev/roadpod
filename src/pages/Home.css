@@ -190,6 +190,15 @@
 .home-footer a {
     color: var(--color-accent-strong);
     text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.home-footer-github-icon {
+    width: 14px;
+    height: 14px;
+    opacity: 0.85;
 }
 
 .home-footer a:hover {

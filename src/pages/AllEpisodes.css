@@ -291,6 +291,32 @@
   white-space: nowrap;
 }
 
+.episode-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.episode-copy-button {
+  display: grid;
+  place-items: center;
+  width: 33px;
+  height: 33px;
+  flex: 0 0 auto;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: border-color 160ms ease, background-color 160ms ease, color 160ms ease;
+}
+
+.episode-copy-button:hover {
+  border-color: var(--type-color);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--color-text);
+}
+
 .episode-open-button {
   display: inline-flex;
   align-items: center;
@@ -371,6 +397,7 @@
 }
 
 .filter-button:focus-visible,
+.episode-copy-button:focus-visible,
 .episode-open-button:focus-visible,
 .expanded-player-heading button:focus-visible,
 .episode-empty button:focus-visible {
@@ -471,6 +498,11 @@
     font-size: 0.59rem;
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+
+  .episode-copy-button {
+    width: 29px;
+    height: 29px;
   }
 
   .episode-open-button {

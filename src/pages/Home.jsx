@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
+import useDocumentTitle from '../hooks/useDocumentTitle';
 import './Home.css';
 import bannerEps1 from './assets/banner-eps-1.jpg';
 import bannerEps2 from './assets/banner-eps-2.jpg';
 import bannerEps3 from './assets/banner-eps-3.jpg';
 import roadSquare from './assets/road-square.jpg';
+import githubIcon from './assets/github-icon.png';
 
 const slides = [
   { id: 1, title: null, src: bannerEps1 },
@@ -12,6 +14,7 @@ const slides = [
 ];
 
 function Home() {
+  useDocumentTitle('Road Podglifos');
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
@@ -63,7 +66,13 @@ function Home() {
 
       <footer className="home-footer">
         <p>&copy; 2024 Road Podglifos. Todos os direitos reservados.</p>
-        <p> Design by <a href="https://github.com/marinsnanadev" target="_blank" rel="noopener noreferrer">Nana Marins</a></p>
+        <p className="home-footer-credit">
+          Design by{' '}
+          <a href="https://github.com/marinsnanadev" target="_blank" rel="noopener noreferrer">
+            <img src={githubIcon} alt="" className="home-footer-github-icon" />
+            Nana Marins
+          </a>
+        </p>
       </footer>
     </main>
   );

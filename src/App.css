@@ -148,6 +148,25 @@
   outline: none;
 }
 
+.dropdown-item-button.active {
+  color: var(--color-accent-strong);
+  position: relative;
+}
+
+.dropdown-item-button.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 3px;
+  background: var(--color-accent-strong);
+}
+
+.dropdown-item-button.active:hover {
+  color: #fff;
+}
+
 .nav-btn:focus-visible,
 .navbar-brand-link:focus-visible {
   outline: 2px solid var(--color-accent-strong);
