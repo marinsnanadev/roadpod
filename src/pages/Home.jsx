@@ -6,9 +6,9 @@ import bannerEps3 from './assets/banner-eps-3.jpg';
 import roadSquare from './assets/road-square.jpg';
 
 const slides = [
-  { id: 1, title: 'Image 1', src: bannerEps1 },
-  { id: 2, title: 'Image 2', src: bannerEps2 },
-  { id: 3, title: 'Image 3', src: bannerEps3 },
+  { id: 1, title: null, src: bannerEps1 },
+  { id: 2, title: null, src: bannerEps2 },
+  { id: 3, title: null, src: bannerEps3 },
 ];
 
 function Home() {
@@ -63,7 +63,7 @@ function Home() {
 
       <footer className="home-footer">
         <p>&copy; 2024 Road Podglifos. Todos os direitos reservados.</p>
-        <p> Design by <a href="https://www.example.com" target="_blank" rel="noopener noreferrer">nana boladona nois é pika </a></p>
+        <p> Design by <a href="https://github.com/marinsnanadev" target="_blank" rel="noopener noreferrer">Nana Marins</a></p>
       </footer>
     </main>
   );
