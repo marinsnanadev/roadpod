@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import useDocumentTitle from '../hooks/useDocumentTitle';
 import './AllEpisodes.css';
 
 const episodeList = [
@@ -67,6 +68,9 @@ function AllEpisodes() {
   const defaultFilter = routeFilterMap[episodeType] || 'Todos os episódios';
   const [selectedType, setSelectedType] = useState(defaultFilter);
   const [expandedEpisode, setExpandedEpisode] = useState(null);
+  const [copiedId, setCopiedId] = useState(null);
+
+  useDocumentTitle(`Road Podglifos | ${selectedType}`);
 
   useEffect(() => {
     setSelectedType(defaultFilter);
@@ -84,6 +88,20 @@ function AllEpisodes() {
 
   const toggleEpisode = (id) => {
     setExpandedEpisode((current) => (current === id ? null : id));
+  };
+
+  const getShareUrl = (src) => src.replace('/embed/episode/', '/episode/');
+
+  const handleCopyLink = async (episode) => {
+    try {
+      await navigator.clipboard.writeText(getShareUrl(episode.src));
+      setCopiedId(episode.id);
+      setTimeout(() => {
+        setCopiedId((current) => (current === episode.id ? null : current));
+      }, 1600);
+    } catch (error) {
+      // Clipboard indisponível (ex: contexto não seguro); ignora silenciosamente.
+    }
   };
 
   return (
@@ -150,17 +168,28 @@ function AllEpisodes() {
                         <span className="episode-badge">{episode.type}</span>
                         <h3>{episode.title}</h3>
                       </div>
-                      <button
-                        type="button"
-                        className="episode-open-button"
-                        onClick={() => toggleEpisode(episode.id)}
-                        aria-expanded={isExpanded}
-                        aria-controls={panelId}
-                        aria-label={`${isExpanded ? 'Fechar' : 'Abrir'} player de ${episode.title}`}
-                      >
-                        <span>{isExpanded ? 'Fechar' : 'Ouvir'}</span>
-                        <span className="button-mark" aria-hidden="true">{isExpanded ? '×' : '▶'}</span>
-                      </button>
+                      <div className="episode-actions">
+                        <button
+                          type="button"
+                          className="episode-copy-button"
+                          onClick={() => handleCopyLink(episode)}
+                          aria-label={`Copiar link do episódio ${episode.title}`}
+                          title="Copiar link"
+                        >
+                          {copiedId === episode.id ? '✓' : '⧉'}
+                        </button>
+                        <button
+                          type="button"
+                          className="episode-open-button"
+                          onClick={() => toggleEpisode(episode.id)}
+                          aria-expanded={isExpanded}
+                          aria-controls={panelId}
+                          aria-label={`${isExpanded ? 'Fechar' : 'Abrir'} player de ${episode.title}`}
+                        >
+                          <span>{isExpanded ? 'Fechar' : 'Ouvir'}</span>
+                          <span className="button-mark" aria-hidden="true">{isExpanded ? '×' : '▶'}</span>
+                        </button>
+                      </div>
                     </div>
 
                     {isExpanded && (

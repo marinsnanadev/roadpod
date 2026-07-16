@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
+import useDocumentTitle from '../hooks/useDocumentTitle';
 import './Contact.css';
 import instaIcon from './assets/insta-icon.png';
 import twitterIcon from './assets/twitter-icon.png';
@@ -17,6 +18,7 @@ const socialMedia = [
 const MESSAGE_LIMIT = 500;
 
 function Contact() {
+  useDocumentTitle('Road Podglifos | Contato');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState('');

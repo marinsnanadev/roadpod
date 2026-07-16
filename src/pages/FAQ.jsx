@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
+import useDocumentTitle from '../hooks/useDocumentTitle';
 import './FAQ.css';
 
 const faqCategories = [
@@ -81,6 +82,7 @@ function FAQItem({ item, isOpen, onToggle }) {
 }
 
 function FAQ() {
+  useDocumentTitle('Road Podglifos | FAQ');
   const [openKey, setOpenKey] = useState('0-0');
   const pageRef = useRef(null);
 
