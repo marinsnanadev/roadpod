@@ -9,6 +9,7 @@
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^13.5.0",
     "gsap": "^3.15.0",
+    "nodemailer": "^9.0.3",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-router-dom": "^7.18.0",
@@ -19,6 +20,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:api": "jest --config jest.config.api.js",
+    "test:all": "npm run test:api -- --watchAll=false && react-scripts test --watchAll=false",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

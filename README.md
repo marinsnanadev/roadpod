@@ -19,9 +19,23 @@ npm start
 npm run build
 ```
 
+### Formulário de contato (envio de e-mail)
+
+O envio de e-mail é feito por uma Vercel Function em `api/send-mail.js` (Nodemailer).
+`npm start` sozinho não expõe `/api`, então para testar o formulário localmente:
+
+```bash
+npm install -g vercel   # uma vez só
+cp .env.example .env    # preencha com suas credenciais SMTP
+vercel dev
+```
+
+Variáveis necessárias (ver `.env.example`): `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`,
+`SMTP_PASS`, `CONTACT_TO_EMAIL`, `CORS_ALLOWED_ORIGIN`. Em produção, configure as
+mesmas variáveis no dashboard da Vercel (Project Settings → Environment Variables).
+
 ## Proximos passos 
 
 - Preencher o FAQ com texto real (hoje é lorem ipsum)
 - Inserir manualmente títulos e capas dos episódios
-- Conectar o formulário de contato a um backend real de envio de e-mail
-- Construir testes
+- Construir testes (em andamento)

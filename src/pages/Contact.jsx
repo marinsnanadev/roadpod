@@ -63,16 +63,18 @@ function Contact() {
     setSubmitState('loading');
 
     try {
-      const response = await fetch('https://example.com/api/send-mail', {
+      const response = await fetch('/api/send-mail', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, message }),
+        body: JSON.stringify({ email: emailValue, message: messageValue }),
       });
 
+      const data = await response.json().catch(() => ({}));
+
       if (!response.ok) {
-        throw new Error('Erro no servidor');
+        throw new Error(data.error || 'Erro no servidor');
       }
 
       setEmail('');
@@ -80,7 +82,7 @@ function Contact() {
       setStatus('Mensagem enviada com sucesso! Te respondemos em breve.');
       setSubmitState('success');
     } catch (error) {
-      setStatus('Falha ao enviar. Substitua a URL pelo seu endpoint de e-mail.');
+      setStatus(error.message || 'Falha ao enviar. Tente novamente em instantes.');
       setSubmitState('error');
     } finally {
       setTimeout(() => setSubmitState((current) => (current === 'loading' ? 'idle' : current)), 0);
