@@ -18,6 +18,15 @@ export const menuItems = [
     ],
   },
   {
+    label: 'Notícias',
+    options: [
+      { label: 'Todas as notícias', route: '/news/all' },
+      { label: 'Anúncios da crew', route: '/news/anuncios' },
+      { label: 'Mangá & Anime', route: '/news/manga-anime' },
+      { label: 'Bastidores', route: '/news/bastidores' },
+    ],
+  },
+  {
     label: 'Redes Sociais',
     options: [
       { label: 'Spotify', route: 'https://open.spotify.com/show/1i6oVgf1NiEJCPhxrpsB7Z?si=c98091d1149948fe' },
